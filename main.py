@@ -6,8 +6,11 @@ import config
 import environmentals
 import random
 
+import player
+
 pygame.init()
 clock = pygame.time.Clock()
+player_object = player.Player()
 
 def generate_environment():
     element_dict = {0: environmentals.SmallCactus, 1: environmentals.LargeCactus, 2: environmentals.Pterodactyl}
@@ -23,6 +26,7 @@ def quit_game():
 def main():
     cacti_spawn_time = 42
     while True:
+        player_object.draw()
         quit_game()
         config.window.fill((0, 0, 0))
         config.ground.draw(config.window)
@@ -38,6 +42,9 @@ def main():
             c.update()
             if c.off_screen:
                 config.elements.remove(c)
+        if player_object.alive:
+            player_object.draw()
+            player_object.update()
         clock.tick(60)
         pygame.display.flip()
 

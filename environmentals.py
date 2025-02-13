@@ -14,22 +14,25 @@ class Ground:
 
 class Pterodactyl:
     speed = 1
+    width = 10
+    height = 5
     def __init__(self, win_width):
         self.x = win_width
-        self.width = 10
-        self.height = 5
         self.speed = Pterodactyl.speed
-        self.ptero_rect = pygame.Rect(0,0,0,0)
+        self.rect = pygame.Rect(0, 0, 0, 0)
         self.off_screen = False
+        self.passed = False
 
     def update(self):
         self.x -= self.speed
         if self.x <= -self.width:
             self.off_screen = True
+        if self.x + Pterodactyl.width <= 50:
+            self.passed = True
 
     def draw(self, window):
-        self.ptero_rect = pygame.Rect(self.x, Ground.ground_level - self.height - 20, self.width, self.height)
-        pygame.draw.rect(window, (255, 255, 255), self.ptero_rect)
+        self.rect = pygame.Rect(self.x, Ground.ground_level - Pterodactyl.height - 20, Pterodactyl.width, Pterodactyl.height)
+        pygame.draw.rect(window, (255, 255, 255), self.rect)
 
 class Cactus:
     speed = 1
@@ -38,17 +41,20 @@ class Cactus:
         self.width = width
         self.height = height
         self.speed = Cactus.speed
-        self.cacti_rect = pygame.Rect(0,0,0,0)
+        self.rect = pygame.Rect(0, 0, 0, 0)
         self.off_screen = False
+        self.passed = False
 
     def update(self):
         self.x -= self.speed
         if self.x <= -self.width:
             self.off_screen = True
+        if self.x + self.width <= 50:
+            self.passed = True
 
     def draw(self, window):
-        self.cacti_rect = pygame.Rect(self.x, Ground.ground_level - self.height, self.width, self.height)
-        pygame.draw.rect(window, (255, 255, 255), self.cacti_rect)
+        self.rect = pygame.Rect(self.x, Ground.ground_level - self.height, self.width, self.height)
+        pygame.draw.rect(window, (255, 255, 255), self.rect)
 
 # Sizes of cacti will change in the future
 class SmallCactus(Cactus):
