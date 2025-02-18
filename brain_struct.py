@@ -42,6 +42,8 @@ class Brain:
         for i in range(0, self.inputs):
             self.neurons[i].output_value = vision[i]
 
+        self.neurons[3].output_value = 1
+
         for i in range(0, len(self.net)):
             self.net[i].activate()
 

@@ -1,5 +1,6 @@
 import pygame
 import random
+import brain_struct
 
 from pygame.time import Clock
 
@@ -18,6 +19,14 @@ class Player:
         self.jump = False
         self.duck_down = False
         self.alive = True
+
+        self.lifespan = 0
+        self.decision = None
+        self.vision = [0.5, 1, 0.5]
+        self.fitness = 0
+        self.inputs = 3
+        self.brain = brain_struct.Brain(self.inputs)
+        self.brain.generate_net()
 
     def draw(self):
         pygame.draw.rect(config.window, self.color, self.rect)
@@ -48,6 +57,7 @@ class Player:
             self.jump = True
             self.vel = -5
         if self.ground_collision():
+            print("GROUND")
             self.jump = False
 
     def duck(self):
@@ -65,5 +75,33 @@ class Player:
         for e in config.elements:
             if not e.passed:
                 return e
+
+    def look(self):
+        if config.elements:
+            self.vision[0] = max(0, self.rect.center[1]-self.closest_obstacle().rect.bottom) / 500
+            pygame.draw.line(config.window, self.color, self.rect.center,
+                             (self.rect.center[0], config.elements[0].rect.bottom))
+            self.vision[1] = max(0, self.closest_obstacle().x - self.rect.center[0]) / 500
+            pygame.draw.line(config.window, self.color, self.rect.center,
+                             (config.elements[0].x, self.rect.center[1]))
+            self.vision[2] = max(0, self.closest_obstacle().rect.top - self.rect.center[1]) / 500
+            pygame.draw.line(config.window, self.color, self.rect.center,
+                             (self.rect.center[0], config.elements[0].rect.top))
+
+    def think(self):
+        self.decision = self.brain.feed_forward(self.vision)
+        if self.decision >= 0.7:
+            self.jump_up()
+
+    def calculate_fitness(self):
+        self.fitness = self.lifespan
+
+    def clone(self):
+        clone = Player()
+        clone.fitness = self.fitness
+        clone.brain = self.brain.clone()
+        clone.brain.generate_net()
+        return clone
+
 
 
