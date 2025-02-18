@@ -109,13 +109,10 @@ class Synapse:
 
     def mutate(self):
         if random.uniform(0, 1) < 0.1:
-            self.weight += random.uniform(1, 1)
+            self.weight += random.uniform(-0.5, 0.5)  # Allow negative and positive changes
         else:
-            self.weight = random.gauss(-1, 1)/10
-            if self.weight > 1:
-                self.weight = 1
-            elif self.weight < -1:
-                self.weight = -1
+            self.weight = random.gauss(0, 0.5)  # Keep it centered near 0 but with variation
+        self.weight = max(-1, min(1, self.weight))  # Ensure weights stay in range
 
     def clone(self, from_node, to_node):
         clone = Synapse(from_node, to_node, self.weight)

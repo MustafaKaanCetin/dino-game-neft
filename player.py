@@ -12,7 +12,7 @@ from config import ground
 
 class Player:
     def __init__(self):
-        self.x, self.y = 10, 70
+        self.x, self.y = 10, 60
         self.rect = pygame.Rect(self.x, self.y, 10, 20)
         self.color = random.randint(100, 255), random.randint(100, 255), random.randint(100, 255)
         self.vel = 0
@@ -43,22 +43,17 @@ class Player:
         if not (self.ground_collision() or self.env_collision()):
             self.vel += 0.25
             self.rect.y += self.vel
-            if self.vel > 5:
-                self.vel = 5
+            self.lifespan += 1
         elif self.env_collision():
             self.alive = False
-        else:
-            self.jump = False
-            self.vel = 0
-            self.y = 20
+        elif self.ground_collision():
+            self.vel = -5
 
     def jump_up(self):
-        if not self.jump:
-            self.jump = True
-            self.vel = -5
         if self.ground_collision():
-            print("GROUND")
-            self.jump = False
+            self.vel = -5
+            self.jump = True
+            print("Jumped")
 
     def duck(self):
         if not self.duck_down:
