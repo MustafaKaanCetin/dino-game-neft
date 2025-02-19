@@ -26,7 +26,8 @@ class Obj:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def draw(self, window):
-        pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.height))
+
+        pygame.draw.rect(window, self.color, self.rect)
 
 class Cacti(Obj):
     def __init__(self, width, height):

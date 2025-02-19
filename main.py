@@ -26,13 +26,12 @@ def set_obj():
 
 def main():
     obj_spawn_time = 42
-    speed = 1.5
+    speed = 5
     while True:
         quit_game()
         conf.window.fill((255, 255, 255))
         dino.update()
         dino.draw()
-        dino.jump()
         conf.ground.draw()
 
         if obj_spawn_time == 0:
@@ -40,9 +39,9 @@ def main():
             obj_spawn_time = random.randint(100, 200)
 
         for obj in conf.obj:
-            obj.x -= speed
+            obj.rect.x -= speed
             obj.draw(conf.window)
-            if obj.x < -obj.width:
+            if obj.rect.x < -obj.width:
                 obj.out = True
 
         for obj in conf.obj:
@@ -52,6 +51,10 @@ def main():
         clock.tick(60)
         obj_spawn_time -= 1
         speed += 0.0001
+        if not dino.alive:
+            conf.obj = []
+            speed = 5
+            dino.alive = True
         pygame.display.flip()
 
 main()
