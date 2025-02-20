@@ -23,7 +23,7 @@ class Population:
     def natural_selection(self):
         self.speciate()
         self.calculate_fitness()
-        self.kill_extinct()
+        # self.kill_extinct()
         self.kill_stale()
         self.sort_by_fitness()
         self.next_gen()

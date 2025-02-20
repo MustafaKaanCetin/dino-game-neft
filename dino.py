@@ -11,7 +11,7 @@ class Dino:
         self.height = 15
         self.width = 10
         self.vel = 0
-        self.duck_rect = pygame.Rect(self.x, self.y-5, self.height, self.width)
+        self.duck_rect = pygame.Rect(self.x, conf.ground.ground_level - self.width, self.height, self.width)
         self.stand_rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.curr_rect = self.stand_rect
         self.color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
@@ -79,10 +79,10 @@ class Dino:
     def inputs(self):
         obj = self.check_next_obj()
         if obj:
-            obj_height = obj.rect.height / 40
-            obj_dist = (obj.rect.x - self.x) /40
-            return [obj_height, obj_dist, self.vel / 40]
-        return [0.05, 1.05, 0.05]
+            obj_height = obj.rect.height
+            obj_dist = obj.rect.x - self.x
+            return [(obj_height / 60) * 2 - 1, (obj_dist / conf.win_width) * 2 - 1, (self.vel / 5) * 2 - 1, (obj.above_ground / 10) * 2 - 1]
+        return [0.05, 1.05, 0.05, -1]
 
     def think(self):
         output = self.brain.feed_forward(self)

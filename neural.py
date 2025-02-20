@@ -93,8 +93,11 @@ class Node:
         def sigmoid(x):
             return 1 / (1 + math.exp(-x))
 
+        def tanh_method(x):
+            return math.tanh(x)
+
         if self.layer != 0:
-            self.output = sigmoid(self.input)
+            self.output = tanh_method(self.input)
 
         for i in range(0, len(self.connections)):
             self.connections[i].after.input += self.output * self.connections[i].weight

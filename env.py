@@ -32,6 +32,7 @@ class Obj:
 class Cacti(Obj):
     def __init__(self, width, height):
         super().__init__(conf.win_width, conf.ground.ground_level - self.height, width, height, (0, 0, 0))
+        self.above_ground = 0
 
 class SmallCactus(Cacti):
     width = 10
@@ -63,3 +64,4 @@ class Ptero(Obj):
     height = 60
     def __init__(self):
         super().__init__(conf.win_width, conf.ground.ground_level - self.height - 10, self.width, self.height, (0, 0, 0))
+        self.above_ground = 10
