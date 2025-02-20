@@ -19,6 +19,7 @@ class Population:
                 player.think()
                 player.draw()
                 player.update()
+                player.survival_time += 1
 
     def natural_selection(self):
         self.speciate()
