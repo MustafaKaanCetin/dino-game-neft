@@ -60,6 +60,6 @@ class CactusGroup:
 
 class Ptero(Obj):
     width = 20
-    height = 10
+    height = 60
     def __init__(self):
         super().__init__(conf.win_width, conf.ground.ground_level - self.height - 10, self.width, self.height, (0, 0, 0))

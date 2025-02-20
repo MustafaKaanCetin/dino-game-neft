@@ -3,11 +3,13 @@ import sys
 import random
 import conf
 import env
-import dino
+import population
+import neural
 
 pygame.init()
 pygame.display.set_caption("Dino Game NN")
-dino = dino.Dino()
+# dino = dino.Dino()
+population = population.Population(20)
 clock = pygame.time.Clock()
 
 def quit_game():
@@ -31,9 +33,9 @@ def main():
     while True:
         quit_game()
         conf.window.fill((255, 255, 255))
-        dino.update()
-        dino.think()
-        dino.draw()
+        # dino.update()
+        # dino.think()
+        # dino.draw()
         conf.ground.draw()
 
         if obj_spawn_time == 0:
@@ -50,13 +52,19 @@ def main():
             if obj.out:
                 conf.obj.remove(obj)
 
+        if not population.extinct():
+            population.update_players()
+        else:
+            conf.obj.clear()
+            population.natural_selection()
+
         clock.tick(60)
         obj_spawn_time -= 1
-        speed += 0.0001
-        if not dino.alive:
-            conf.obj = []
-            speed = 5
-            dino.alive = True
+        speed += 0.001
+        # if not dino.alive:
+        #     conf.obj = []
+        #     speed = 5
+        #     dino.alive = True
         pygame.display.flip()
 
 main()

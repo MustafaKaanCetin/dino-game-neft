@@ -2,7 +2,6 @@ import math
 import random
 import operator
 
-
 class Brain:
     def __init__(self, input_nodes, clone=False):
         self.input_nodes = input_nodes

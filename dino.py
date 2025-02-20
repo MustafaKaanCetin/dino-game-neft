@@ -93,8 +93,7 @@ class Dino:
         self.decision = output
 
     def calculate_fitness(self):
-        self.fitness = self.survival_time
-        self.fitness = self.fitness ** 2
+        self.fitness = self.survival_time ** 2
 
     def copy(self):
         copy = Dino()
