@@ -45,13 +45,14 @@ class LargeCactus(Cacti):
     def __init__(self):
         super().__init__(self.width, self.height)
 
-class CactusGroup():
+class CactusGroup:
     def __init__(self):
         self.cacti = []
         self.cactus_amount = random.choice([2, 3])
         for i in range(self.cactus_amount):
             cactus = random.choice([SmallCactus(), LargeCactus()])
-            cactus.x = conf.win_width + i * 15
+            cactus.x = conf.win_width + i * 10 + 15
+            cactus.rect = pygame.Rect(cactus.x, cactus.y, cactus.width, cactus.height)
             self.cacti.append(cactus)
 
     def add(self, cactus):
@@ -61,4 +62,4 @@ class Ptero(Obj):
     width = 20
     height = 10
     def __init__(self):
-        super().__init__(conf.win_width, conf.ground.ground_level - self.height - 40, self.width, self.height, (0, 0, 0))
+        super().__init__(conf.win_width, conf.ground.ground_level - self.height - 10, self.width, self.height, (0, 0, 0))

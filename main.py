@@ -18,6 +18,7 @@ def quit_game():
 
 def set_obj():
     new_obj = random.choice([env.SmallCactus(), env.LargeCactus(), env.CactusGroup(), env.Ptero()])
+
     if isinstance(new_obj, env.CactusGroup):
         for cactus in new_obj.cacti:
             conf.obj.append(cactus)
@@ -31,6 +32,7 @@ def main():
         quit_game()
         conf.window.fill((255, 255, 255))
         dino.update()
+        dino.think()
         dino.draw()
         conf.ground.draw()
 

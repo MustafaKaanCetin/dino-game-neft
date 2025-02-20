@@ -78,9 +78,11 @@ class Dino:
 
     def inputs(self):
         obj = self.check_next_obj()
-        obj_height = obj.rect.height / 40
-        obj_dist = (obj.rect.x - self.x) /40
-        return [obj_height, obj_dist, self.vel / 40]
+        if obj:
+            obj_height = obj.rect.height / 40
+            obj_dist = (obj.rect.x - self.x) /40
+            return [obj_height, obj_dist, self.vel / 40]
+        return [0.05, 1.05, 0.05]
 
     def think(self):
         output = self.brain.feed_forward(self)

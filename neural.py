@@ -98,7 +98,7 @@ class Node:
             self.output = sigmoid(self.input)
 
         for i in range(0, len(self.connections)):
-            self.connections[i].front.input += self.output * self.connections[i].weight
+            self.connections[i].after.input += self.output * self.connections[i].weight
 
     def copy(self):
         copy = Node(self.id)
