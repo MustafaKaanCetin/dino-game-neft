@@ -8,7 +8,6 @@ import neural
 
 pygame.init()
 pygame.display.set_caption("Dino Game NN")
-# dino = dino.Dino()
 population = population.Population(40)
 clock = pygame.time.Clock()
 
@@ -33,9 +32,6 @@ def main():
     while True:
         quit_game()
         conf.window.fill((255, 255, 255))
-        # dino.update()
-        # dino.think()
-        # dino.draw()
         conf.ground.draw()
 
         if obj_spawn_time == 0:
@@ -62,13 +58,6 @@ def main():
         clock.tick(60)
         obj_spawn_time -= 1
         speed += 0.0004
-        # if not dino.alive:
-        #     conf.obj = []
-        #     speed = 5
-        #     dino.alive = True
         pygame.display.flip()
 
 main()
-
-
-
